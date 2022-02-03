@@ -3,10 +3,20 @@ const hre = require("hardhat");
 async function main() {
   // We get the contract to deploy
   const myEpicNFT = await hre.ethers.getContractFactory("MyEpicNFT");
-  const _myEpicNFT = await myEpicNFT.deploy();
+  const nftContract = await myEpicNFT.deploy();
 
   await _myEpicNFT.deployed();
-  console.log("MyEpicNFT  deployed to:", _myEpicNFT.address);
+  console.log("MyEpicNFT  deployed to:", nftContract.address);
+
+  // Call the function.
+  let txn = await nftContract.makeAnEpicNFT();
+  // Wait for it to be mined.
+  await txn.wait();
+
+  // Mint another NFT for fun.
+  txn = await nftContract.makeAnEpicNFT();
+  // Wait for it to be mined.
+  await txn.wait();
 }
 
 // We recommend this pattern to be able to use async/await everywhere
