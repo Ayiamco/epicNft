@@ -1,11 +1,8 @@
 require("dotenv").config();
 async function deploy() {
   let nftContractFactory = await hre.ethers.getContractFactory("MyEpicNFT");
-  console.log("1...");
   let nftContract = await nftContractFactory.deploy();
-  console.log("2...");
   await nftContract.deployed();
-  console.log("3...");
   console.log("contract address: ", nftContract.address);
 
   // Call the function.
@@ -13,7 +10,6 @@ async function deploy() {
   // Wait for it to be mined.
   await txn.wait();
   console.log("Minted NFT #1");
-
   txn = await nftContract.makeAnEpicNFT();
   // Wait for it to be mined.
   await txn.wait();
